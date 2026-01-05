@@ -33,13 +33,25 @@ The script uses `matplotlib` to create a high-quality PNG image of the 12 notes 
 
 ## Usage
 
-Run the script using Python:
+### Command Line Script
+
+Run the script using Python to generate a static image:
 
 ```bash
 python chromatic_diagram.py
 ```
 
 This will generate a file named `chromatic_circle.png` in the current directory.
+
+### Streamlit Web App
+
+To run the interactive web application:
+
+```bash
+streamlit run app.py
+```
+
+This will open a web browser where you can select a root note and chord type to visualize on the diagram.
 
 ## Output Example
 
