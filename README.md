@@ -28,7 +28,7 @@ The script uses `matplotlib` to create a high-quality PNG image of the 12 notes 
 
 3.  Install the required packages:
     ```bash
-    pip install matplotlib numpy
+    pip install -r requirements.txt
     ```
 
 ## Usage
