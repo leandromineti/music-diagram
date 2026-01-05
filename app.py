@@ -25,6 +25,18 @@ def get_chord_notes(root_note, chord_type):
     chord_indices = [(root_idx + interval) % 12 for interval in intervals[chord_type]]
     return [scale[i] for i in chord_indices]
 
+def get_chord_intervals(chord_type):
+    interval_names = {
+        'Major': ['Root', 'Major 3rd', 'Perfect 5th'],
+        'Minor': ['Root', 'Minor 3rd', 'Perfect 5th'],
+        'Diminished': ['Root', 'Minor 3rd', 'Diminished 5th'],
+        'Augmented': ['Root', 'Major 3rd', 'Augmented 5th'],
+        'Major 7': ['Root', 'Major 3rd', 'Perfect 5th', 'Major 7th'],
+        'Minor 7': ['Root', 'Minor 3rd', 'Perfect 5th', 'Minor 7th'],
+        'Dominant 7': ['Root', 'Major 3rd', 'Perfect 5th', 'Minor 7th']
+    }
+    return interval_names.get(chord_type, [])
+
 def draw_chromatic_circle(highlight_notes=None):
     if highlight_notes is None:
         highlight_notes = []
@@ -85,12 +97,20 @@ def main():
     chord_type = st.sidebar.selectbox('Select Chord Type', chord_types)
     
     chord_notes = get_chord_notes(root_note, chord_type)
+    chord_intervals = get_chord_intervals(chord_type)
     
-    st.write(f"### {root_note} {chord_type}")
-    st.write(f"Notes: {', '.join(chord_notes)}")
+    col1, col2 = st.columns([3, 2])
     
-    fig = draw_chromatic_circle(chord_notes)
-    st.pyplot(fig)
+    with col1:
+        st.write(f"### {root_note} {chord_type}")
+        fig = draw_chromatic_circle(chord_notes)
+        st.pyplot(fig)
+        
+    with col2:
+        st.write("### Chord Details")
+        st.write("") # Add some spacing
+        for note, interval in zip(chord_notes, chord_intervals):
+            st.markdown(f"**{interval}**: {note}")
 
 if __name__ == "__main__":
     main()
